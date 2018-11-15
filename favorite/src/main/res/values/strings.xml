@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Favorite</string>
+    <string name="text_hint_movie">Movie App</string>
+    <string name="url_image">http://image.tmdb.org/t/p/w342/</string>
+</resources>

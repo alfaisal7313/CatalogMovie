@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/root_view_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingLeft="@dimen/dimens_16"
+        android:paddingTop="@dimen/dimens_8"
+        android:paddingRight="@dimen/dimens_16"
+        android:paddingBottom="@dimen/dimens_8"
+        tools:ignore="UselessParent">
+
+        <ImageView
+            android:id="@+id/poster_movie_item"
+            android:layout_width="@dimen/width_img_list"
+            android:layout_height="@dimen/poster_height_list"
+            android:layout_marginEnd="@dimen/dimens_16"
+            android:layout_marginRight="@dimen/dimens_16"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/dimens_5"
+            android:scaleType="centerCrop"
+            android:src="@color/colorAccent"
+            android:transitionName="posterTransaction"
+            tools:ignore="ContentDescription,UnusedAttribute" />
+
+        <FrameLayout
+            android:layout_width="@dimen/budge"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/poster_movie_item"
+            android:layout_alignLeft="@id/poster_movie_item">
+
+            <ImageView
+                android:layout_width="@dimen/width_badge"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_turned"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/vote_movie_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/dimens_8"
+                android:text="@string/hint_vote"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_mini_vote"
+                android:textStyle="bold"
+                android:transitionName="voteTransaction"
+                tools:ignore="UnusedAttribute" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/poster_movie_item"
+            android:layout_toRightOf="@id/poster_movie_item"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_movie_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="@string/text_hint_movie"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="titleTransaction"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/release_date_movie_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@string/text_hint_movie"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_12"
+                android:transitionName="releaseTransaction"
+                tools:ignore="UnusedAttribute" />
+
+            <TextView
+                android:id="@+id/overview_movie_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:text="@string/text_hint_movie"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_14" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

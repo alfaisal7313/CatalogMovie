@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimens_16">16dp</dimen>
+    <dimen name="dimens_8">8dp</dimen>
+    <dimen name="dimens_5">5dp</dimen>
+    <dimen name="width_img_list">95dp</dimen>
+    <dimen name="width_badge">35dp</dimen>
+    <dimen name="text_mini_vote">8sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="img_poster">260dp</dimen>
+    <dimen name="img_backdrop">270dp</dimen>
+    <dimen name="bg_gradient">130dp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="height_indicator_selected">2dp</dimen>
+    <dimen name="margin_padding_0">0dp</dimen>
+    <dimen name="widht_poster_detail">90dp</dimen>
+    <dimen name="height_poster_detail">120dp</dimen>
+    <dimen name="budge">35dp</dimen>
+    <dimen name="poster_height_list">120dp</dimen>
+    <dimen name="height_poster_text">50dp</dimen>
+    <dimen name="dimens_24">24dp</dimen>
+</resources>

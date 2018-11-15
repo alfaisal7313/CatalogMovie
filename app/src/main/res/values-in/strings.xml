@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="toolbar_title">Katalog Film</string>
+    <string name="text_hint_movie">Judul Film</string>
+    <string name="change_lang_setting">Ganti Bahasa</string>
+    <string name="release_date">Tanggal Rilis</string>
+    <string name="txt_overview">PENINJAUAN</string>
+    <string name="upcoming">Mendatang</string>
+    <string name="search">Pencarian</string>
+    <string name="hint_search">Pencarian Film</string>
+    <string name="now_playing">Sedang dimainkan</string>
+    <string name="search_process">Pemuatan…</string>
+    <string name="favorite">Kesukaan</string>
+    <string name="msg_success_fav">Berhasil menambah favorit film</string>
+    <string name="message_favorite_null">Film favorit tidak tersedia</string>
+    <string name="msg_remove_fav">Film favorit sudah dihapus</string>
+</resources>

@@ -1,0 +1,16 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="text_hint_movie">Title Movie</string>
+    <string name="search">Search</string>
+    <string name="hint_search">Search Movie</string>
+    <string name="action_settings">Settings</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="category_movie">Category Movie</string>
+    <string name="search_process">Process...</string>
+    <string name="toolbar_title">Catalog Movie UI UX</string>
+    <string name="txt_overview">OVERVIEW</string>
+    <string name="vote">Vote </string>
+    <string name="release_date">Release Date</string>
+    <string name="change_lang_setting">Change Language Setting</string>
+    <string name="text_null">-</string>
+</resources>

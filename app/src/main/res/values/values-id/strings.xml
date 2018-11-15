@@ -1,0 +1,20 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Summission2</string>
+    <string name="text_hint_movie">Judul Flim</string>
+    <string name="search">Pencarian</string>
+    <string name="hint_search">Pencarian Flim</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="upcoming">Mendatang</string>
+    <string name="now_playing">Sedang dimainkan</string>
+    <string name="category_movie">Kategori Flim</string>
+    <string name="search_process">Pemuatan...</string>
+    <string name="toolbar_title">Catalog Movie UI UX</string>
+    <string name="txt_overview">Peninjauan</string>
+    <string name="vote_averge">Pilih Rata-Rata</string>
+    <string name="hint_date">20-11-2018</string>
+    <string name="release_date">Tanggal Rilis</string>
+    <string name="hint_10">10</string>
+    <string name="change_lang_setting">Ganti Bahasa</string>
+    <string name="text_null">-</string>
+    <string name="hint_vote">5.6</string>
+</resources>

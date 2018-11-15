@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_hint_movie">Title Movie</string>
+    <string name="toolbar_title">Catalog Movie</string>
+    <string name="search">Search</string>
+    <string name="hint_search">Search Movie</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="search_process">Process…</string>
+    <string name="txt_overview">OVERVIEW</string>
+    <string name="release_date">Release Date</string>
+    <string name="change_lang_setting">Change Language Setting</string>
+    <string name="favorite">Favorite</string>
+    <string name="msg_success_fav">Successfully added movie favorites</string>
+    <string name="message_favorite_null">Favorite movie not available</string>
+    <string name="msg_remove_fav">Your favorite movie has been deleted</string>
+</resources>

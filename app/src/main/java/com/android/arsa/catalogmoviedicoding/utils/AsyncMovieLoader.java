@@ -1,9 +1,11 @@
 package com.android.arsa.catalogmoviedicoding.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.AsyncTaskLoader;
+import android.os.Looper;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.loader.content.AsyncTaskLoader;
 
 import com.android.arsa.catalogmoviedicoding.data.model.Movie;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -62,6 +64,7 @@ public class AsyncMovieLoader extends AsyncTaskLoader<ArrayList<Movie>> {
         final ArrayList<Movie> movieList = new ArrayList<>();
         SyncHttpClient client = new SyncHttpClient();
 
+        Looper.prepare();
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {

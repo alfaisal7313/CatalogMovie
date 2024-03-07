@@ -2,13 +2,13 @@ package com.android.arsa.catalogmoviedicoding.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,24 +16,18 @@ import android.widget.ProgressBar;
 
 import com.android.arsa.catalogmoviedicoding.R;
 import com.android.arsa.catalogmoviedicoding.data.model.Movie;
+import com.android.arsa.catalogmoviedicoding.databinding.FragmentNowPlayingBinding;
 import com.android.arsa.catalogmoviedicoding.utils.AsyncMovieLoader;
 import com.android.arsa.catalogmoviedicoding.utils.Const;
 import com.android.arsa.catalogmoviedicoding.view.adapter.MovieAdapter;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NowPlayingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
-
-    @BindView(R.id.progress)
-    ProgressBar pbLoading;
-    @BindView(R.id.now_playing_frag)
-    RecyclerView rvFragNowPlaying;
+    private FragmentNowPlayingBinding bindingView;
 
     private static final String EXTRA_MOVIE = "EXTRA_MOVIE";
     private MovieAdapter adapter;
@@ -43,15 +37,15 @@ public class NowPlayingFragment extends Fragment implements LoaderManager.Loader
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_now_playing, container, false);
-        ButterKnife.bind(this, view);
+        bindingView = FragmentNowPlayingBinding.bind(view);
 
         int gridCount = getResources().getInteger(R.integer.grid_column_count);
 
-        rvFragNowPlaying.setLayoutManager(new GridLayoutManager(context, gridCount));
-        rvFragNowPlaying.setHasFixedSize(true);
+        bindingView.nowPlayingFrag.setLayoutManager(new GridLayoutManager(context, gridCount));
+        bindingView.nowPlayingFrag.setHasFixedSize(true);
 
         adapter = new MovieAdapter(context);
-        rvFragNowPlaying.setAdapter(adapter);
+        bindingView.nowPlayingFrag.setAdapter(adapter);
 
         Bundle bundle = new Bundle();
         bundle.putString(EXTRA_MOVIE, Const.SORT_NOW_PLAYING);
@@ -73,7 +67,7 @@ public class NowPlayingFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Movie>> loader, ArrayList<Movie> movies) {
         if (movies.size() >0){
-            pbLoading.setVisibility(View.GONE);
+            bindingView.progress.setVisibility(View.GONE);
         }
         adapter.setMoviesItem(movies);
     }

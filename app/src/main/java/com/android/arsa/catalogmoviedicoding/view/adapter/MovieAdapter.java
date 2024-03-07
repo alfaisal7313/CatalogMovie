@@ -3,9 +3,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.CircularProgressDrawable;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,25 +14,20 @@ import android.widget.TextView;
 
 import com.android.arsa.catalogmoviedicoding.R;
 import com.android.arsa.catalogmoviedicoding.data.model.Movie;
+import com.android.arsa.catalogmoviedicoding.databinding.ItemPosterBinding;
 import com.android.arsa.catalogmoviedicoding.view.activity.DetailActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import static com.android.arsa.catalogmoviedicoding.utils.Const.loadMoviePoster;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
     private ArrayList<Movie> moviesItem = new ArrayList<>();
     private final Context context;
-    private final LayoutInflater inflater;
 
     public MovieAdapter(Context context) {
         this.context = context;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public void setMoviesItem(ArrayList<Movie> moviesItem) {
@@ -43,8 +38,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
     @NonNull
     @Override
     public MovieHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = inflater.inflate(R.layout.item_poster, viewGroup, false);
-        return new MovieHolder(view);
+        ItemPosterBinding binding = ItemPosterBinding.inflate(LayoutInflater.from(context));
+        return new MovieHolder(binding);
     }
 
     @Override
@@ -85,15 +80,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         return moviesItem == null ? 0 : moviesItem.size();
     }
 
-    public class MovieHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.title_poster)
+    public static class MovieHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
-        @BindView(R.id.img_poster)
         ImageView imgPoster;
 
-        MovieHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        MovieHolder(@NonNull ItemPosterBinding itemBinding) {
+            super(itemBinding.getRoot());
+            tvTitle = itemBinding.titlePoster;
+            imgPoster = itemBinding.imgPoster;
         }
     }
 }

@@ -1,13 +1,12 @@
 package com.android.arsa.catalogmoviedicoding.view.activity;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import com.android.arsa.catalogmoviedicoding.databinding.ActivityMainBinding;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,24 +14,18 @@ import com.android.arsa.catalogmoviedicoding.R;
 import com.android.arsa.catalogmoviedicoding.view.adapter.PagerAdapter;
 import com.android.arsa.catalogmoviedicoding.view.adapter.SearchAdapter;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class MainActivity extends AppCompatActivity {
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.tab_layout)
-    TabLayout tabLayout;
-    @BindView(R.id.pager)
+    private ActivityMainBinding viewBinding;
     ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        viewBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(viewBinding.getRoot());
+        assert viewBinding.viewPager != null;
+        viewPager = viewBinding.viewPager.pager;
 
-        ButterKnife.bind(this);
         initComponent();
     }
 
@@ -45,17 +38,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupViewPager() {
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), viewBinding.tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(viewBinding.tabLayout));
     }
 
     private void setupTabLayout() {
-        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.now_playing)));
-        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.upcoming)));
+        viewBinding.tabLayout.addTab(viewBinding.tabLayout.newTab().setText(getResources().getString(R.string.now_playing)));
+        viewBinding.tabLayout.addTab(viewBinding.tabLayout.newTab().setText(getResources().getString(R.string.upcoming)));
 //        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.favorite)));
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        viewBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -74,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        setSupportActionBar(toolbar);
+        setSupportActionBar(viewBinding.toolbar);
         if (getSupportActionBar() != null){
             getSupportActionBar().setTitle(getResources().getString(R.string.toolbar_title));
         }
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-        toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_sort));
+        viewBinding.toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        viewBinding.toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_sort));
     }
 
     @Override

@@ -4,34 +4,30 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.core.view.MenuItemCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.arsa.catalogmoviedicoding.R;
 import com.android.arsa.catalogmoviedicoding.data.model.Movie;
+import com.android.arsa.catalogmoviedicoding.databinding.ActivitySearchBinding;
 import com.android.arsa.catalogmoviedicoding.utils.AsyncMovieLoader;
 import com.android.arsa.catalogmoviedicoding.utils.Const;
 import com.android.arsa.catalogmoviedicoding.view.adapter.SearchAdapter;
 
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
 
-    @BindView(R.id.rv_search_main)
     RecyclerView rvMain;
 
     private static final String EXTRA_SEARCH_MOVIE = "EXTRA_SEARCH_MOVIE";
@@ -44,8 +40,8 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        ButterKnife.bind(this);
+        ActivitySearchBinding viewBinding = ActivitySearchBinding.inflate(getLayoutInflater());
+        setContentView(viewBinding.getRoot());
         initComponent();
     }
 

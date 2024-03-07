@@ -35,5 +35,5 @@
             app:tabTextColor="@android:color/white" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include android:id="@+id/view_pager" layout="@layout/contant_main" />
+    <include layout="@layout/contant_main" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,47 +4,44 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import com.android.arsa.catalogmoviedicoding.databinding.ActivityFavoriteBinding;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.MenuItem;
 
 import com.android.arsa.catalogmoviedicoding.R;
 import com.android.arsa.catalogmoviedicoding.view.adapter.FavoriteAdapter;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import static com.android.arsa.catalogmoviedicoding.data.db.DatabaseContract.CONTENT_URI;
 
 public class FavoriteActivity extends AppCompatActivity {
-
-    @BindView(R.id.rv_favorite)
-    RecyclerView rvFavorite;
-
+    private ActivityFavoriteBinding bindingView;
     private FavoriteAdapter adapter;
     private Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorite);
+        bindingView = ActivityFavoriteBinding.inflate(getLayoutInflater());
+        setContentView(bindingView.getRoot());
 
-        ButterKnife.bind(this);
-
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getResources().getString(R.string.favorite));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         int gridCount = getResources().getInteger(R.integer.grid_column_count);
-        rvFavorite.setLayoutManager(new GridLayoutManager(this, gridCount));
-        rvFavorite.setHasFixedSize(true);
+        bindingView.rvFavorite.setLayoutManager(new GridLayoutManager(this, gridCount));
+        bindingView.rvFavorite.setHasFixedSize(true);
 
         adapter = new FavoriteAdapter(this);
         adapter.setCursor(cursor);
-        rvFavorite.setAdapter(adapter);
+        bindingView.rvFavorite.setAdapter(adapter);
 
         new LoadMovieData().execute();
     }
@@ -52,7 +49,7 @@ public class FavoriteActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        new LoadMovieData().execute();
+//        new LoadMovieData().execute();
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -73,8 +70,8 @@ public class FavoriteActivity extends AppCompatActivity {
             adapter.setCursor(cursor);
             adapter.notifyDataSetChanged();
 
-            if (cursor.getCount() == 0){
-                Snackbar.make(rvFavorite, getResources().getString(R.string.message_favorite_null), Snackbar.LENGTH_SHORT).show();
+            if (cursor.getCount() == 0) {
+                Snackbar.make(bindingView.rvFavorite, getResources().getString(R.string.message_favorite_null), Snackbar.LENGTH_SHORT).show();
             }
 
         }
@@ -82,7 +79,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);

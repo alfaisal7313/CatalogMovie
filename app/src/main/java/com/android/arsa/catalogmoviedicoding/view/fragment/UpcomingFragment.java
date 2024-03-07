@@ -2,39 +2,30 @@ package com.android.arsa.catalogmoviedicoding.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.android.arsa.catalogmoviedicoding.R;
 import com.android.arsa.catalogmoviedicoding.data.model.Movie;
+import com.android.arsa.catalogmoviedicoding.databinding.FragmentUpcomingBinding;
 import com.android.arsa.catalogmoviedicoding.utils.AsyncMovieLoader;
 import com.android.arsa.catalogmoviedicoding.utils.Const;
 import com.android.arsa.catalogmoviedicoding.view.adapter.MovieAdapter;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Movie>>{
-
-    @BindView(R.id.upcoming_frag)
-    RecyclerView rvFragUpcoming;
-    @BindView(R.id.progress)
-    ProgressBar pbLoading;
-
+    private FragmentUpcomingBinding bindingView;
     private static final String EXTRA_MOVIE = "EXTRA_MOVIE";
     private MovieAdapter adapter;
     private Context context;
@@ -43,8 +34,7 @@ public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upcoming, container, false);
-
-        ButterKnife.bind(this, view);
+        bindingView = FragmentUpcomingBinding.bind(view);
         setupRecyclerView();
 
         Bundle bundle = new Bundle();
@@ -56,11 +46,11 @@ public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCa
     private void setupRecyclerView() {
         int gridCount = getResources().getInteger(R.integer.grid_column_count);
 
-        rvFragUpcoming.setLayoutManager(new GridLayoutManager(context, gridCount));
-        rvFragUpcoming.setHasFixedSize(true);
+        bindingView.upcomingFrag.setLayoutManager(new GridLayoutManager(context, gridCount));
+        bindingView.upcomingFrag.setHasFixedSize(true);
 
         adapter = new MovieAdapter(context);
-        rvFragUpcoming.setAdapter(adapter);
+        bindingView.upcomingFrag.setAdapter(adapter);
     }
 
     @NonNull
@@ -76,7 +66,7 @@ public class UpcomingFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Movie>> loader, ArrayList<Movie> movies) {
         if (movies.size() > 0) {
-            pbLoading.setVisibility(View.GONE);
+            bindingView.progress.setVisibility(View.GONE);
         }
         adapter.setMoviesItem(movies);
     }

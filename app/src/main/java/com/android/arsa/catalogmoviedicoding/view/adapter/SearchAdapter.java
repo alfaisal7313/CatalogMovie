@@ -4,9 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.CircularProgressDrawable;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,26 +17,22 @@ import android.widget.TextView;
 
 import com.android.arsa.catalogmoviedicoding.R;
 import com.android.arsa.catalogmoviedicoding.data.model.Movie;
+import com.android.arsa.catalogmoviedicoding.databinding.ItemMovieRowBinding;
+import com.android.arsa.catalogmoviedicoding.databinding.ItemPosterBinding;
 import com.android.arsa.catalogmoviedicoding.view.activity.DetailActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import static com.android.arsa.catalogmoviedicoding.utils.Const.loadMoviePoster;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
     private static final String TAG = SearchAdapter.class.getSimpleName();
     private final Context context;
-    private final LayoutInflater inflater;
     private ArrayList<Movie> moviesItem = new ArrayList<>();
 
     public SearchAdapter(Context context) {
         this.context = context;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public void setMoviesItem(ArrayList<Movie> moviesItem) {
@@ -47,8 +43,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @NonNull
     @Override
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = inflater.inflate(R.layout.item_movie_row, viewGroup, false);
-        return new SearchViewHolder(view);
+        ItemMovieRowBinding binding = ItemMovieRowBinding.inflate(LayoutInflater.from(context));
+        return new SearchViewHolder(binding);
     }
 
     @SuppressLint("NewApi")
@@ -93,22 +89,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     }
 
     public class SearchViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.title_movie_item)
         TextView tvTitle;
-        @BindView(R.id.release_date_movie_item)
         TextView tvOverview;
-        @BindView(R.id.overview_movie_item)
         TextView tvReleaseDate;
-        @BindView(R.id.vote_movie_item)
         TextView tvVote;
-        @BindView(R.id.poster_movie_item)
         ImageView imgPoster;
-        @BindView(R.id.root_view_item)
         RelativeLayout rootView;
 
-        private SearchViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
+        private SearchViewHolder(@NonNull ItemMovieRowBinding itemBinding) {
+            super(itemBinding.getRoot());
+            tvTitle = itemBinding.titleMovieItem;
+            tvOverview = itemBinding.overviewMovieItem;
+            tvReleaseDate = itemBinding.releaseDateMovieItem;
+            tvVote = itemBinding.voteMovieItem;
+            imgPoster = itemBinding.posterMovieItem;
+            rootView = itemBinding.rootViewItem;
         }
     }
 }

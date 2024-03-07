@@ -7,16 +7,14 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.CircularProgressDrawable;
-import android.support.v7.app.AppCompatActivity;
+
+import com.android.arsa.catalogmoviedicoding.databinding.ActivityDetailBinding;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.android.arsa.catalogmoviedicoding.R;
 import com.android.arsa.catalogmoviedicoding.data.db.FavoriteHelper;
@@ -24,13 +22,6 @@ import com.android.arsa.catalogmoviedicoding.data.model.Movie;
 import com.android.arsa.catalogmoviedicoding.utils.Const;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-
 import static com.android.arsa.catalogmoviedicoding.utils.Const.loadMovieBackdrop;
 import static com.android.arsa.catalogmoviedicoding.utils.Const.loadMoviePoster;
 
@@ -40,17 +31,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     public static final String EXTRA_POSITION = "EXTRA_POSITION";
     private static boolean isFavorite = false;
 
-    @BindViews({R.id.title_detail, R.id.release_date_detail, R.id.vote_detail, R.id.overview_detail})
-    List<TextView> textViews;
-    @BindViews({R.id.poster_path_detail, R.id.backdrop_movie_detail})
-    List<ImageView> imageViews;
-    @BindView(R.id.btn_favorite)
-    ImageButton btnFavorite;
-    @BindView(R.id.btn_share)
-    ImageButton btnShare;
-    @BindView(R.id.v_root)
-    RelativeLayout vRoot;
-
+    private ActivityDetailBinding viewBinding;
     private Movie movie;
     private FavoriteHelper helper;
 
@@ -58,9 +39,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
-
-        ButterKnife.bind(this);
+        viewBinding = ActivityDetailBinding.inflate(getLayoutInflater());
+        setContentView(viewBinding.getRoot());
 
         helper = new FavoriteHelper(this).open();
         Uri uri = getIntent().getData();
@@ -78,10 +58,10 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         int data = helper.queryByIdProvider(String.valueOf(movie.getId())).getCount();
         if (data > 0) {
-            btnFavorite.setImageResource(R.drawable.ic_favorite_check);
+            viewBinding.btnFavorite.setImageResource(R.drawable.ic_favorite_check);
             isFavorite = true;
         } else {
-            btnFavorite.setImageResource(R.drawable.ic_favorite_uncheck);
+            viewBinding.btnFavorite.setImageResource(R.drawable.ic_favorite_uncheck);
             isFavorite = false;
         }
         initComponent();
@@ -89,13 +69,13 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     private void initComponent() {
         setupToolbar();
-        textViews.get(0).setText(movie.getTitle());
-        textViews.get(1).setText(String.format("%s : %s", getResources().getString(R.string.release_date), movie.getRelease_date()));
-        textViews.get(2).setText(String.format("%s/", movie.getVote_average()));
+        viewBinding.titleDetail.setText(movie.getTitle());
+        viewBinding.releaseDateDetail.setText(String.format("%s : %s", getResources().getString(R.string.release_date), movie.getRelease_date()));
+        viewBinding.voteDetail.setText(String.format("%s/", movie.getVote_average()));
         if (movie.getOverview().length() <= 0) {
-            textViews.get(3).setText(getResources().getString(R.string.text_null));
+            viewBinding.overviewDetail.setText(getResources().getString(R.string.text_null));
         } else {
-            textViews.get(3).setText(movie.getOverview());
+            viewBinding.overviewDetail.setText(movie.getOverview());
         }
 
         CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(getApplicationContext());
@@ -107,15 +87,15 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         Glide.with(this).load(loadMoviePoster(movie.getPoster_path()))
                 .apply(new RequestOptions().placeholder(R.drawable.placholder)
                         .error(R.drawable.error).centerCrop().dontAnimate())
-                .into(imageViews.get(0));
+                .into(viewBinding.posterPathDetail);
 
         Glide.with(this).load(loadMovieBackdrop(movie.getBackdrop_path()))
                 .apply(new RequestOptions().placeholder(circularProgressDrawable)
                         .error(R.drawable.error).centerCrop().dontAnimate())
-                .into(imageViews.get(1));
+                .into(viewBinding.backdropMovieDetail);
 
-        btnFavorite.setOnClickListener(this);
-        btnShare.setOnClickListener(this);
+        viewBinding.btnFavorite.setOnClickListener(this);
+        viewBinding.btnShare.setOnClickListener(this);
     }
 
     private void setupToolbar() {
@@ -143,12 +123,12 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btn_favorite:
                 if (!isFavorite) {
                     helper.dbInsert(movie);
-                    btnFavorite.setImageResource(R.drawable.ic_favorite_check);
+                    viewBinding.btnFavorite.setImageResource(R.drawable.ic_favorite_check);
                     isFavorite = true;
                     showMessage(getString(R.string.msg_success_fav));
                 } else {
                     helper.dbDelete(movie);
-                    btnFavorite.setImageResource(R.drawable.ic_favorite_uncheck);
+                    viewBinding.btnFavorite.setImageResource(R.drawable.ic_favorite_uncheck);
                     isFavorite = false;
                     showMessage(getString(R.string.msg_remove_fav));
                 }
@@ -163,9 +143,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         Intent shareMovie = new Intent(Intent.ACTION_SEND);
         shareMovie.setType(getString(R.string.action_send_type));
 
-        String titleMovie = textViews.get(0).getText().toString();
+        String titleMovie = viewBinding.titleDetail.getText().toString();
         String imgPoster = String.valueOf(Const.loadMovieBackdrop(movie.getPoster_path()));
-        String overviewMovie = textViews.get(3).getText().toString();
+        String overviewMovie = viewBinding.overviewDetail.getText().toString();
         String contentShare = String.format("%s\n\n%s\n%s\n\n%s", titleMovie,
                 getString(R.string.image_movie), imgPoster, overviewMovie);
 
@@ -174,7 +154,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void showMessage(String message) {
-        Snackbar.make(vRoot, message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(viewBinding.vRoot, message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
